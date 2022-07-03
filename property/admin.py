@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Flat, Complain, Owner
+from .models import Flat, Complaint, Owner
 
 
 class OwnerInLine(admin.TabularInline):
@@ -9,6 +9,7 @@ class OwnerInLine(admin.TabularInline):
     raw_id_fields = 'owner',
 
 
+@admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
     search_fields = 'town', 'address'
     readonly_fields = 'created_at',
@@ -19,14 +20,12 @@ class FlatAdmin(admin.ModelAdmin):
     inlines = OwnerInLine,
 
 
-class ComplainAdmin(admin.ModelAdmin):
+@admin.register(Complaint)
+class ComplaintAdmin(admin.ModelAdmin):
     raw_id_fields = 'flat', 'user'
 
 
+@admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = 'flat',
 
-
-admin.site.register(Flat, FlatAdmin)
-admin.site.register(Complain, ComplainAdmin)
-admin.site.register(Owner, OwnerAdmin)
