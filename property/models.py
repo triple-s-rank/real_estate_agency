@@ -41,7 +41,7 @@ class Flat(models.Model):
 
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
-    new_building = models.BooleanField('Новостройка ли', null=True)
+    new_building = models.BooleanField('Новостройка ли', null=True, db_index=True)
     construction_year = models.IntegerField(
         'Год постройки здания',
         null=True,
@@ -79,4 +79,4 @@ class Owner(models.Model):
     flat = models.ManyToManyField(Flat, related_name='owners', verbose_name='Квартиры в собственности')
 
     def __str__(self):
-        return  self.full_name
+        return self.full_name
