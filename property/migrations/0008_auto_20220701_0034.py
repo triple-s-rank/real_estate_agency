@@ -6,7 +6,8 @@ from django.db import migrations
 def fill_owners_flats(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    for flat in Flat.objects.all():
+    flats = Flat.objects.all()
+    for flat in flats.iterator():
         flat.owners.set(Owner.objects.filter(
             full_name=flat.owner,
             phonenumber=flat.owners_phonenumber
